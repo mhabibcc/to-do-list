@@ -1,0 +1,125 @@
+basePath: /api/
+consumes:
+    - application/json
+host: localhost:3000
+info:
+    description: 'Product Api: '
+    version: "0.1"
+components:
+  schemas:
+    
+  responses:
+    ResponseStandard:
+        description: "The standard response"
+        headers:
+            data:
+                description: Data
+                type: object
+            message:
+                description: Message of Info
+                type: string
+    ResponseTask:
+        description: "All task response"
+        headers:
+            id:
+                description: Id of task
+                type: int
+            task_name:
+                description: name of task
+                type: string
+            is_done:
+                description: status of task
+                type: bool
+paths:
+    /task:
+        post:
+            description: Create Task
+            operationId: task
+            parameters:
+                - description: The task to create.
+                  in: body
+                  name: task
+                  schema:
+                    properties:
+                        task_name:
+                            type: string
+                        is_done:
+                            type: integer
+                    required:
+                        - task_name
+                    type: object
+            responses:
+                '201':
+                    description: Success Create Response
+                    content:
+                      application/json:
+                        schema:
+                          $ref: '#/components/responses/ResponseStandard'
+    /tasks:
+        get:
+            description: Get All Tasks
+            operationId: task
+            responses:
+                '200':
+                    description: All task data
+                    content:
+                      application/json:
+                        schema:
+                          type: array
+                          items:
+                           $ref: '#/components/responses/ResponseTask'
+    /task/{task_id}:
+        put:
+            description: Update Task by id
+            operationId: task
+            parameters:
+                - name: task_id
+                  in: path
+                  description: id of task to update
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+                - description: The task data to update.
+                  in: body
+                  name: task
+                  schema:
+                    properties:
+                        task_name:
+                            type: string
+                        is_done:
+                            type: integer
+                    required:
+                        - task_name
+                    type: object
+            responses:
+                '200':
+                    description: Success Update Response
+                    content:
+                      application/json:
+                        schema:
+                          $ref: '#/components/responses/ResponseStandard'
+        delete:
+            description: delete Task by id
+            operationId: task
+            parameters:
+                - name: task_id
+                  in: path
+                  description: id of task to update
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                '200':
+                    description: Success Delete Response
+                    content:
+                      application/json:
+                        schema:
+                          $ref: '#/components/responses/ResponseStandard'
+produces:
+    - application/json
+schemes:
+    - http
+    - https
+swagger: "2.0"

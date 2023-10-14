@@ -1,0 +1,14 @@
+server:
+  http:
+    address: ":3000"
+database:
+  driver: "postgres"
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  password: "12345678"
+  dbname: "to-do-list"
+  credential: host=%s port=%d user=%s password=%s dbname=%s sslmode=disable
+redis:
+  host: "localhost:6379"
+  password: ""
